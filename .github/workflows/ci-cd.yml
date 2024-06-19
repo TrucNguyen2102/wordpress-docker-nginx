@@ -27,6 +27,6 @@ jobs:
           SSH_USER: ${{ secrets.PROD_USER }}
           SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
         run: |
-          echo "$SSH_KEY" > id_rsa
-          chmod 600 id_rsa
-          ssh -o StrictHostKeyChecking=no -i id_rsa $SSH_USER@$SSH_HOST 'cd D:/NAM4_HK2/CHUYENDE/services> && docker-compose pull && docker-compose up -d'
+          echo "$SSH_KEY" > ~/.ssh/id_rsa   # Ghi SSH_KEY vào file id_rsa tạm thời
+          chmod 600 ~/.ssh/id_rsa           # Cấp quyền truy cập cho file id_rsa
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST 'cd D:/NAM4_HK2/CHUYENDE/services> && docker-compose pull && docker-compose up -d'
