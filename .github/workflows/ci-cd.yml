@@ -1,36 +1,3 @@
-# name: CI/CD
-
-# on:
-#   push:
-#     branches: [ "master" ]
-#   pull_request:
-#     branches: [ "master" ]
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@main
-    
-#       - name: Build Docker
-#         run: docker compose up --build -d 
-  
-#   deploy:
-#     runs-on: ubuntu-latest
-#     needs: build
-
-#     steps:
-#       - name: Deploy to Production
-#         env:
-#           SSH_HOST: ${{ secrets.PROD_HOST }}
-#           SSH_USER: ${{ secrets.PROD_USER }}
-#           SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
-#         run: |
-#           echo "$SSH_KEY" > ~/.ssh/id_rsa   # Ghi SSH_KEY vào file id_rsa tạm thời
-#           chmod 600 ~/.ssh/id_rsa           # Cấp quyền truy cập cho file id_rsa
-#           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST 'cd D:/NAM4_HK2/CHUYENDE/services> && docker-compose pull && docker-compose up -d'
-
 name: CI/CD
 
 on:
@@ -40,24 +7,13 @@ on:
     branches: [ "master" ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-
-      - name: Deploy to Production
-        env:
-          SSH_HOST: ${{ secrets.PROD_HOST }}
-          SSH_USER: ${{ secrets.PROD_USER }}
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST 'cd D:/NAM4_HK2/CHUYENDE/services> && docker-compose pull && docker-compose up -d'
+      - uses: actions/checkout@main
+    
+      - name: Build Docker
+        run: docker compose up --build -d 
+  
+  
