@@ -6,6 +6,7 @@ Các bước thực hiện:
 - Khi clone về, cần xác định file project được đặt ở đâu?
 - Mở file project bằng visual studio code.
 - Xác định đường dẫn dẫn đến file docker-compose.yml.
+    + Bạn có thể set up các biến environment theo ý của mình.
     + Trong file này bạn có thể config port của service wordpress nếu bạn muốn.
     + port của mysql mặc định là 3306, nếu bạn bị báo lỗi thì đừng quá lo lắng. Do có 1 service nào đó sử dụng port này, chẳng hạn như MySQL trên máy của bạn, chỉ cần stop MySQL trên máy bạn là có thể cài đặt bình thường.
 - Chạy project: yêu cầu đã cài đặt Docker Desktop trên máy
