@@ -80,34 +80,22 @@ jobs:
       run: docker-compose up --build -d
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: docker-image
-        path: .
+      uses: actions/upload-pages-artifact@v3
+      
 
   deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-    - name: Download Docker image
-      uses: actions/download-artifact@v3
-      with:
-        name: docker-image
+    runs-on: ubuntu-latest
+    needs: build
 
+    steps:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}  
+      
     
   
   
