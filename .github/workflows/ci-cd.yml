@@ -44,6 +44,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        ACTIONS_DEPLOY_ACCESS_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
     
     environment:
       name: github-pages
